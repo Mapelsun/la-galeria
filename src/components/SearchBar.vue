@@ -47,12 +47,19 @@ export default {};
     height: 6.5rem;
     border-radius: 1rem;
     background-color: #f5f5f5;
-    box-shadow: -2px -2px 20px rgba(0, 0, 0, 0.09);
-    transition: all 0.1s ease-in-out;
+    box-shadow: 3px 3px 20px 5px rgba(0, 0, 0, 0.09);
+    transition: all 0.3s ease-in-out;
 
     padding: 0 1.4rem;
 
     border: 1px solid #e0e0e0;
+
+    &:active,
+    &:hover,
+    &:focus {
+      background-color: #fff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
   }
   &__btn {
     border: none;
