@@ -50,7 +50,7 @@ export default {};
 <style lang="scss" scoped>
 .gallery {
   column-width: 35rem;
-  column-gap: 2.4rem;
+  column-gap: 5rem;
   page-break-inside: avoid;
   break-inside: avoid;
 
@@ -60,7 +60,9 @@ export default {};
     width: 100%;
     display: block;
     object-fit: cover;
-    margin-bottom: 2.4rem;
+    margin-bottom: 4rem;
+    border-radius: 1rem;
+    border: none;
   }
 }
 </style>

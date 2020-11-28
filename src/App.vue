@@ -7,6 +7,9 @@
 </template>
 
 <style lang="scss">
+// Font import
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
+
 // Basic reset
 html {
   box-sizing: border-box;
@@ -30,7 +33,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   word-wrap: break-word;
   word-break: normal;
-  font-size: 1.6rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 // Reuseable
