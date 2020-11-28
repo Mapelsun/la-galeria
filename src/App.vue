@@ -32,6 +32,14 @@ body {
   word-break: normal;
   font-size: 1.6rem;
 }
+
+// Reuseable
+.row {
+  max-width: 132rem;
+  width: 90%;
+  margin: 0 auto;
+}
+
 // Vue Transitions
 .fade-enter-active,
 .fade-leave-active {
@@ -42,4 +50,25 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+
+// Responsive breakpoints
+
+// // 1200px
+// @media only screen and (max-width: 75em) {
+// }
+// // 1024px
+// @media only screen and (max-width: 64em) {
+// }
+
+// // 900px
+// @media only screen and (max-width: 56.25em) {
+// }
+
+// // 768px
+// @media only screen and (max-width: 48em) {
+// }
+
+// // 480px
+// @media only screen and (max-width: 30em) {
+// }
 </style>

@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-    <h1>Hello World</h1>
-    <!-- <app-search-bar></app-search-bar>
-    <app-gallery></app-gallery> -->
+    <!-- <app-search-bar></app-search-bar> -->
+    <app-gallery-grid></app-gallery-grid>
+
   </div>
 </template>
 
 <script>
 // import SearchBar from "@/components/SearchBar.vue";
-// import Gallery from "@/components/Gallery.vue";
+import GalleryGrid from "@/components/GalleryGrid.vue";
 
 export default {
   name: "Home",
-  // components: {
-  //   "app-search-bar": SearchBar,
-  //   "app-gallery": Gallery
-  // }
+  components: {
+    // "app-search-bar": SearchBar,
+    "app-gallery-grid": GalleryGrid
+  }
 };
 </script>
+
+<style lang="scss" scoped>
+</style>
