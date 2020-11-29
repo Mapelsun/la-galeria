@@ -10,7 +10,7 @@
 import api from "@/api/api.js";
 import SearchBar from "@/components/SearchBar.vue";
 import GalleryGrid from "@/components/GalleryGrid.vue";
-import Toast from "@/Widgets/Toast.vue";
+import Toast from "@/widgets/Toast.vue";
 
 export default {
   components: {
@@ -19,7 +19,7 @@ export default {
     "app-toast": Toast
   },
   mounted() {
-    let payload = "Africa";
+    let payload = "African";
     api
       .handleSearchPhotos(payload)
       .then(response => {
@@ -27,6 +27,7 @@ export default {
         let responseMessage = response.statusText;
         let photos = response.data.results;
         if (responseStatus === 200) {
+          console.log(photos);
           this.$store.dispatch("setSearchedPhotos", photos);
         } else {
           this.$refs.toast.toggleToast(responseMessage);

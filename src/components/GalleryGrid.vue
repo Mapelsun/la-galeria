@@ -1,49 +1,21 @@
 <template>
-  <!-- <section class="gallery row">
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1602524209335-0224ee211de5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1606440894295-8a79c32fdaf4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1588442742006-ca3547ac60fa?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1606462531411-bd77abcb7c57?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1602312588630-7801386f162d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1606446134254-61235a08ccb6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1600440087542-abc2a532862d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-    <img
-      class="gallery__img"
-      src="https://images.unsplash.com/photo-1606416463636-393d972e14df?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-      alt=""
-    />
-  </section> -->
-  <div>
-    {{ searchedPhotos }}
-  </div>
+  <section class="gallery row">
+    <div
+      v-for="photo in searchedPhotos"
+      :key="photo.id"
+      class="gallery__wrapper"
+    >
+      <img
+        :src="photo.urls.regular"
+        :alt="photo.alt_description"
+        class="gallery__img"
+      />
+      <div class="overlay">
+        <h3 class="overlay__author">{{ photo.user.name }}</h3>
+        <p class="overlay__location">{{ photo.user.location }}</p>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -62,13 +34,51 @@ export default {
 
   margin: 10rem auto;
 
+  &__wrapper {
+    position: relative;
+    border-radius: 1rem;
+    margin-bottom: 4rem;
+    overflow: hidden;
+    &:hover {
+      cursor: zoom-in;
+    }
+    &:hover .overlay {
+      opacity: 1;
+    }
+  }
   &__img {
     width: 100%;
     display: block;
     object-fit: cover;
-    margin-bottom: 4rem;
-    border-radius: 1rem;
     border: none;
+  }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &__author,
+  &__location {
+    color: #ffffff;
+  }
+  &__author {
+    font-weight: 500;
+  }
+  &__location {
+    font-weight: 300;
   }
 }
 </style>
