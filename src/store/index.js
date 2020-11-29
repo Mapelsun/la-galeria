@@ -4,8 +4,20 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    loading: false,
+    searchedPhotos: []
+  },
+  mutations: {
+    SET_PHOTOS(state, photos) {
+      state.searchedPhotos = photos;
+    }
+  },
+  actions: {
+    setSearchedPhotos(context, payload) {
+      let photos = payload;
+      context.commit("SET_PHOTOS", photos);
+    }
+  },
   modules: {}
 });

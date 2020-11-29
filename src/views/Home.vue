@@ -9,10 +9,30 @@
 import SearchBar from "@/components/SearchBar.vue";
 import GalleryGrid from "@/components/GalleryGrid.vue";
 
+import api from "@/api/api.js";
+
 export default {
   components: {
     "app-search-bar": SearchBar,
     "app-gallery-grid": GalleryGrid
+  },
+  mounted() {
+    let payload = "Africa";
+    api
+      .handleSearchPhotos(payload)
+      .then(response => {
+        let responseStatus = response.status;
+        let responseMessage = response.statusText;
+        let photos = response.data.results;
+        if (responseStatus === 200) {
+          this.$store.dispatch("setSearchedPhotos", photos);
+        } else {
+          console.log(responseMessage);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>

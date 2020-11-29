@@ -2,13 +2,14 @@ import axios from "axios";
 import config from "../config";
 
 export default {
-  pingUnsplash: () => {
-    let method = "post";
-    let url = config.serverURI + "/ping";
+  handleSearchPhotos: data => {
+    let method = "get";
+    let url = config.serverURI + "/search/photos";
     return axios({
       method,
       url,
-      headers: { Authorization: "Client-ID " + config.clientKey }
+      params: { per_page: 8, query: data },
+      headers: { Authorization: "Client-ID " + config.clientAccessKey }
     });
   }
 };

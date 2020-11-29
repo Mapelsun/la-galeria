@@ -1,5 +1,5 @@
 export default {
   serverURI: process.env.VUE_APP_URL,
-  clientSecret: process.env.VUE_APP_CLIENT_SECRET,
-  clientKey: process.env.VUE_APP_CLIENT_KEY
+  clientAccessKey: process.env.VUE_APP_ACCESS_KEY,
+  clientSecretKey: process.env.VUE_APP_SECRET_KEY
 };

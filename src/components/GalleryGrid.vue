@@ -1,5 +1,5 @@
 <template>
-  <section class="gallery row">
+  <!-- <section class="gallery row">
     <img
       class="gallery__img"
       src="https://images.unsplash.com/photo-1602524209335-0224ee211de5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
@@ -40,11 +40,17 @@
       src="https://images.unsplash.com/photo-1606416463636-393d972e14df?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
       alt=""
     />
-  </section>
+  </section> -->
+  <div>
+    {{ searchedPhotos }}
+  </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  computed: mapState(["searchedPhotos"])
+};
 </script>
 
 <style lang="scss" scoped>
