@@ -2,19 +2,21 @@
   <main class="main">
     <app-search-bar class="main__search"></app-search-bar>
     <app-gallery-grid class="main__gallery"></app-gallery-grid>
+    <app-toast ref="toast"></app-toast>
   </main>
 </template>
 
 <script>
+import api from "@/api/api.js";
 import SearchBar from "@/components/SearchBar.vue";
 import GalleryGrid from "@/components/GalleryGrid.vue";
-
-import api from "@/api/api.js";
+import Toast from "@/Widgets/Toast.vue";
 
 export default {
   components: {
     "app-search-bar": SearchBar,
-    "app-gallery-grid": GalleryGrid
+    "app-gallery-grid": GalleryGrid,
+    "app-toast": Toast
   },
   mounted() {
     let payload = "Africa";
@@ -27,11 +29,11 @@ export default {
         if (responseStatus === 200) {
           this.$store.dispatch("setSearchedPhotos", photos);
         } else {
-          console.log(responseMessage);
+          this.$refs.toast.toggleToast(responseMessage);
         }
       })
       .catch(error => {
-        console.log(error);
+        this.$refs.toast.toggleToast(error);
       });
   }
 };
