@@ -9,12 +9,12 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
-  },
-  {
-    path: "/placeholder",
-    name: "Loading",
-    component: () => import("../widgets/LoadingPlaceholder.vue")
   }
+  // {
+  //   path: "/placeholder",
+  //   name: "Loading",
+  //   component: () => import("../widgets/LoadingPlaceholder.vue")
+  // }
 ];
 
 const router = new VueRouter({

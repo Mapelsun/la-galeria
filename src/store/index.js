@@ -11,6 +11,9 @@ export default new Vuex.Store({
   mutations: {
     SET_PHOTOS(state, photos) {
       state.searchedPhotos = photos;
+    },
+    clearData: state => {
+      state.searchedPhotos = [];
     }
   },
   actions: {

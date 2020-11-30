@@ -27,7 +27,6 @@ export default {
         let responseMessage = response.statusText;
         let photos = response.data.results;
         if (responseStatus === 200) {
-          console.log(photos);
           this.$store.dispatch("setSearchedPhotos", photos);
         } else {
           this.$refs.toast.toggleToast(responseMessage);

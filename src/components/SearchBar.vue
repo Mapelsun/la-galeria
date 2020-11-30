@@ -1,6 +1,6 @@
 <template>
   <section class="search">
-    <form class="form" @submit.prevent="login" novalidate="true">
+    <form class="form" @submit.prevent="searchPhoto" novalidate="true">
       <div class="form__group">
         <button class="form__btn" type="submit" title="Search Unsplash">
           <svg
@@ -21,15 +21,57 @@
             type="form"
             name="formInput"
             id="formInput"
+            v-model="form.searchTerm"
             placeholder="Search for photo"
         /></label>
       </div>
     </form>
+    <app-toast ref="toast"></app-toast>
   </section>
 </template>
 
 <script>
-export default {};
+import api from "@/api/api.js";
+import Toast from "@/widgets/Toast.vue";
+export default {
+  components: {
+    "app-toast": Toast
+  },
+  data() {
+    return {
+      form: {
+        searchTerm: ""
+      }
+    };
+  },
+  methods: {
+    searchPhoto() {
+      if (this.form.searchTerm === "") {
+        this.$refs.toast.toggleToast(`Enter search term`);
+        return;
+      }
+
+      let payload = this.form.searchTerm;
+      this.$store.commit("clearData");
+
+      api
+        .handleSearchPhotos(payload)
+        .then(response => {
+          let responseStatus = response.status;
+          let responseMessage = response.statusText;
+          let photos = response.data.results;
+          if (responseStatus === 200) {
+            this.$store.dispatch("setSearchedPhotos", photos);
+          } else {
+            this.$refs.toast.toggleToast(responseMessage);
+          }
+        })
+        .catch(error => {
+          this.$refs.toast.toggleToast(error);
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -67,6 +109,7 @@ export default {};
     background-color: initial;
     cursor: pointer;
     box-shadow: none;
+    outline: none;
     svg {
       width: 2.4rem;
       height: 2.4rem;
