@@ -1,16 +1,9 @@
 <template>
-  <div class="text-input__loading">
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-    <div class="text-input__loading--line"></div>
-  </div>
+  <section class="gallery-item__loading">
+    <div class="gallery-item__loading--img"></div>
+    <h3 class="gallery-item__loading--author"></h3>
+    <p class="gallery-item__loading--location"></p>
+  </section>
 </template>
 
 <script>
@@ -18,32 +11,38 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-@mixin nth-children($points...) {
-  @each $point in $points {
-    &:nth-child(#{$point}) {
-      @content;
-    }
-  }
-}
-
-.text-input {
+.gallery-item {
   &__loading {
-    &--line {
-      height: 1rem;
-      margin: 1rem;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    column-width: 35rem;
+    column-gap: 5rem;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    animation: pulse 1s infinite ease-in-out;
+    &--img {
+      width: 100%;
+      height: 10rem;
+      display: block;
+      object-fit: cover;
+      margin-bottom: 4rem;
+    }
+    &--author,
+    &--location {
+      color: #ffffff;
+      height: 2rem;
+      margin: 0 2rem 2rem;
       animation: pulse 1s infinite ease-in-out;
-      @include nth-children(1, 5, 9) {
-        width: 150px;
-      }
-      @include nth-children(2, 6, 10) {
-        width: 250px;
-      }
-      @include nth-children(3, 7) {
-        width: 50px;
-      }
-      @include nth-children(4, 8) {
-        width: 100px;
-      }
+    }
+    &--author {
+      width: 80%;
+    }
+    &--location {
+      width: 60%;
     }
   }
 }
