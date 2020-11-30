@@ -24,9 +24,10 @@ export default {};
     page-break-inside: avoid;
     break-inside: avoid;
     animation: pulse 1s infinite ease-in-out;
+    margin-bottom: 4rem;
     &--img {
       width: 100%;
-      height: 10rem;
+      height: 20rem;
       display: block;
       object-fit: cover;
       margin-bottom: 4rem;

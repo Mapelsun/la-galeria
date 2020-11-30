@@ -1,6 +1,13 @@
 <template>
   <section class="gallery row">
+    <div v-if="searchedPhotos.length === 0">
+      <app-content-loading
+        v-for="(item, index) in items"
+        :key="index"
+      ></app-content-loading>
+    </div>
     <div
+      v-else
       v-for="photo in searchedPhotos"
       :key="photo.id"
       class="gallery__wrapper"
@@ -42,15 +49,18 @@
 <script>
 import { mapState } from "vuex";
 import Modal from "@/widgets/Modal";
+import LoadingPlaceholder from "@/widgets/LoadingPlaceholder";
 export default {
   computed: mapState(["searchedPhotos"]),
   components: {
-    "app-modal": Modal
+    "app-modal": Modal,
+    "app-content-loading": LoadingPlaceholder
   },
   data() {
     return {
       photoModalVisible: false,
-      singlePhoto: null
+      singlePhoto: null,
+      items: [1, 2, 3, 4, 5, 6, 7, 8]
     };
   },
   methods: {
