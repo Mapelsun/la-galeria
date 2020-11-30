@@ -27,12 +27,14 @@
       </div>
     </form>
 
-    <h2 class="searching" v-if="loading && searchQuery !== ''">
-      Searching for <span>{{ searchQuery }}</span>
-    </h2>
-    <h2 class="searching" v-if="!loading && searchedPhotos.length !== 0">
-      Search Results for <span>{{ searchQuery }}</span>
-    </h2>
+    <div v-if="searchQuery !== 'African'">
+      <h2 class="searching" v-if="loading && searchQuery !== ''">
+        Searching for <span>{{ searchQuery }}</span>
+      </h2>
+      <h2 class="searching" v-if="!loading && searchedPhotos.length !== 0">
+        Search Results for <span>{{ searchQuery }}</span>
+      </h2>
+    </div>
 
     <app-toast ref="toast"></app-toast>
   </section>
@@ -87,7 +89,7 @@ export default {
         .catch(error => {
           this.$refs.toast.toggleToast(error);
         });
-        this.form.searchTerm = "";
+      this.form.searchTerm = "";
     }
   }
 };
