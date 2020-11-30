@@ -8,11 +8,13 @@
 
 <script>
 import api from "@/api/api.js";
+import { mapState } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
 import GalleryGrid from "@/components/GalleryGrid.vue";
 import Toast from "@/widgets/Toast.vue";
 
 export default {
+  computed: mapState(["searchQuery", "loading"]),
   components: {
     "app-search-bar": SearchBar,
     "app-gallery-grid": GalleryGrid,
@@ -20,12 +22,18 @@ export default {
   },
   mounted() {
     let payload = "African";
+    this.$store.commit("setQuery", payload);
+    this.$store.commit("toggleLoading", true);
+
     api
-      .handleSearchPhotos(payload)
+      .handleSearchPhotos(this.searchQuery)
       .then(response => {
+        this.$store.commit("toggleLoading", false);
+
         let responseStatus = response.status;
         let responseMessage = response.statusText;
         let photos = response.data.results;
+
         if (responseStatus === 200) {
           this.$store.dispatch("setSearchedPhotos", photos);
         } else {
@@ -43,8 +51,7 @@ export default {
 .main {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 16vh min-content;
-
+  grid-template-rows: min-content 20vh min-content;
   &__search {
     grid-row: 1 / 3;
     grid-column: 1 / -1;

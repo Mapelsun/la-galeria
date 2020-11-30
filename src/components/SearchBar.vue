@@ -66,7 +66,7 @@ export default {
       this.$store.commit("toggleLoading", true);
 
       api
-        .handleSearchPhotos(payload)
+        .handleSearchPhotos(this.searchQuery)
         .then(response => {
           this.$store.commit("toggleLoading", false);
 
