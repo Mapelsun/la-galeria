@@ -5,20 +5,28 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    loading: false,
+    searchQuery: "",
     searchedPhotos: []
   },
   mutations: {
-    SET_PHOTOS(state, photos) {
+    setPhotos(state, photos) {
       state.searchedPhotos = photos;
     },
     clearData: state => {
       state.searchedPhotos = [];
+    },
+    setQuery(state, payload) {
+      state.searchQuery = payload;
+    },
+    toggleLoading(state, payload) {
+      state.loading = payload;
     }
   },
   actions: {
     setSearchedPhotos(context, payload) {
       let photos = payload;
-      context.commit("SET_PHOTOS", photos);
+      context.commit("setPhotos", photos);
     }
   },
   modules: {}

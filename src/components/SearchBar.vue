@@ -22,17 +22,16 @@
             name="formInput"
             id="formInput"
             v-model="form.searchTerm"
-            @change="clearSearch"
             placeholder="Search for photo"
         /></label>
       </div>
     </form>
 
-    <h2 class="searching" v-if="searching">
-      Searching for <span>{{ form.searchTerm }}</span>
+    <h2 class="searching" v-if="loading && searchQuery !== ''">
+      Searching for <span>{{ searchQuery }}</span>
     </h2>
-    <h2 class="searching" v-if="searchReturned">
-      Search Results for <span>{{ form.searchTerm }}</span>
+    <h2 class="searching" v-if="!loading && searchedPhotos.length !== 0">
+      Search Results for <span>{{ searchQuery }}</span>
     </h2>
 
     <app-toast ref="toast"></app-toast>
@@ -40,16 +39,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import api from "@/api/api.js";
 import Toast from "@/widgets/Toast.vue";
 export default {
+  computed: mapState(["searchedPhotos", "searchQuery", "loading"]),
   components: {
     "app-toast": Toast
   },
   data() {
     return {
-      searching: false,
-      searchReturned: false,
       form: {
         searchTerm: ""
       }
@@ -63,25 +62,24 @@ export default {
       }
 
       let payload = this.form.searchTerm;
-      this.$store.commit("clearData");
-      this.searching = true;
+      this.$store.commit("setQuery", payload);
+      this.$store.commit("toggleLoading", true);
 
       api
         .handleSearchPhotos(payload)
         .then(response => {
-          this.searching = false;
+          this.$store.commit("toggleLoading", false);
+
           let responseStatus = response.status;
           let responseMessage = response.statusText;
           let photos = response.data.results;
+
           if (responseStatus === 200 && photos.length !== 0) {
             this.$store.dispatch("setSearchedPhotos", photos);
-            this.searchReturned = true;
           } else if (responseStatus === 200 && photos.length === 0) {
             this.$refs.toast.toggleToast(
               "No photos found for the searched term"
             );
-            this.$store.commit("clearData");
-            this.form.searchTerm = "";
           } else {
             this.$refs.toast.toggleToast(responseMessage);
           }
@@ -89,9 +87,7 @@ export default {
         .catch(error => {
           this.$refs.toast.toggleToast(error);
         });
-    },
-    clearSearch() {
-      this.searchReturned === false;
+        this.form.searchTerm = "";
     }
   }
 };
