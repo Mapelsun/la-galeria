@@ -4,6 +4,7 @@
       v-for="photo in searchedPhotos"
       :key="photo.id"
       class="gallery__wrapper"
+      @click="magnifyImage(photo)"
     >
       <img
         :src="photo.urls.regular"
@@ -15,13 +16,47 @@
         <p class="overlay__location">{{ photo.user.location }}</p>
       </div>
     </div>
+
+    <app-modal
+      v-if="photoModalVisible"
+      @close="photoModalVisible = false"
+      class="modal-in"
+    >
+      <div v-if="singlePhoto" class="modal-in__wrapper">
+        <img
+          :src="singlePhoto.urls.regular"
+          :alt="singlePhoto.alt_description"
+          class="modal-in__image"
+        />
+        <div class="modal-in__texts">
+          <h3>{{ singlePhoto.user.name }}</h3>
+          <p>{{ singlePhoto.user.location }}</p>
+        </div>
+      </div>
+    </app-modal>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Modal from "@/widgets/Modal";
 export default {
-  computed: mapState(["searchedPhotos"])
+  computed: mapState(["searchedPhotos"]),
+  components: {
+    "app-modal": Modal,
+  },
+  data() {
+    return {
+      photoModalVisible: false,
+      singlePhoto: null,
+    };
+  },
+  methods: {
+    magnifyImage(photo) {
+      this.singlePhoto = photo;
+      this.photoModalVisible = true;
+    },
+  },
 };
 </script>
 
@@ -79,6 +114,28 @@ export default {
   }
   &__location {
     font-weight: 300;
+  }
+}
+.modal-in {
+  &__wrapper {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  &__image {
+    width: 100%;
+    height: 80%;
+    display: block;
+    object-fit: cover;
+  }
+  &__texts {
+    padding: 2rem;
+    h3 {
+      color: #384966;
+    }
+    p {
+      color: #b2b8c4;
+    }
   }
 }
 </style>

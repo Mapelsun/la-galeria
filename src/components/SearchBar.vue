@@ -84,7 +84,8 @@ export default {};
     background: none;
     outline: none;
     &::placeholder {
-      color: #909aaa;
+      color: #283b5b;
+      // color: #909aaa;
       font-size: 1.6rem;
       letter-spacing: 0.5px;
     }
