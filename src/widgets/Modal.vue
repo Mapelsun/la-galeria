@@ -87,6 +87,10 @@ export default {
 
 .modal-body {
   background: #ffffff;
+
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .modal-enter {

@@ -23,11 +23,13 @@
       class="modal-in"
     >
       <div v-if="singlePhoto" class="modal-in__wrapper">
-        <img
-          :src="singlePhoto.urls.regular"
-          :alt="singlePhoto.alt_description"
-          class="modal-in__image"
-        />
+        <div class="modal-in__image-box">
+          <img
+            :src="singlePhoto.urls.regular"
+            :alt="singlePhoto.alt_description"
+            class="modal-in__img"
+          />
+        </div>
         <div class="modal-in__texts">
           <h3>{{ singlePhoto.user.name }}</h3>
           <p>{{ singlePhoto.user.location }}</p>
@@ -43,20 +45,20 @@ import Modal from "@/widgets/Modal";
 export default {
   computed: mapState(["searchedPhotos"]),
   components: {
-    "app-modal": Modal,
+    "app-modal": Modal
   },
   data() {
     return {
       photoModalVisible: false,
-      singlePhoto: null,
+      singlePhoto: null
     };
   },
   methods: {
     magnifyImage(photo) {
       this.singlePhoto = photo;
       this.photoModalVisible = true;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -118,14 +120,15 @@ export default {
 }
 .modal-in {
   &__wrapper {
-    position: relative;
-    border-radius: 1rem;
-    overflow: hidden;
+    height: -webkit-fill-available;
   }
-  &__image {
+  &__image-box {
+    height: 100%;
+  }
+  &__img {
     width: 100%;
-    height: 80%;
-    display: block;
+    height: 77vh;
+    display: inline-block;
     object-fit: cover;
   }
   &__texts {
