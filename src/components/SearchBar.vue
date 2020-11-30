@@ -22,10 +22,19 @@
             name="formInput"
             id="formInput"
             v-model="form.searchTerm"
+            @change="clearSearch"
             placeholder="Search for photo"
         /></label>
       </div>
     </form>
+
+    <h2 class="searching" v-if="searching">
+      Searching for <span>{{ form.searchTerm }}</span>
+    </h2>
+    <h2 class="searching" v-if="searchReturned">
+      Search Results for <span>{{ form.searchTerm }}</span>
+    </h2>
+
     <app-toast ref="toast"></app-toast>
   </section>
 </template>
@@ -39,6 +48,8 @@ export default {
   },
   data() {
     return {
+      searching: false,
+      searchReturned: false,
       form: {
         searchTerm: ""
       }
@@ -53,15 +64,24 @@ export default {
 
       let payload = this.form.searchTerm;
       this.$store.commit("clearData");
+      this.searching = true;
 
       api
         .handleSearchPhotos(payload)
         .then(response => {
+          this.searching = false;
           let responseStatus = response.status;
           let responseMessage = response.statusText;
           let photos = response.data.results;
-          if (responseStatus === 200) {
+          if (responseStatus === 200 && photos.length !== 0) {
             this.$store.dispatch("setSearchedPhotos", photos);
+            this.searchReturned = true;
+          } else if (responseStatus === 200 && photos.length === 0) {
+            this.$refs.toast.toggleToast(
+              "No photos found for the searched term"
+            );
+            this.$store.commit("clearData");
+            this.form.searchTerm = "";
           } else {
             this.$refs.toast.toggleToast(responseMessage);
           }
@@ -69,6 +89,9 @@ export default {
         .catch(error => {
           this.$refs.toast.toggleToast(error);
         });
+    },
+    clearSearch() {
+      this.searchReturned === false;
     }
   }
 };
@@ -132,6 +155,33 @@ export default {
       font-size: 1.6rem;
       letter-spacing: 0.5px;
     }
+  }
+}
+.searching {
+  max-width: 140rem;
+  width: 90%;
+  margin: 0 auto;
+  color: #324462;
+  font-size: 3rem;
+  font-weight: 600;
+  // animation: pulse 1s ease-in-out;
+  animation: pulse 0.5s ease-in;
+  span {
+    color: #8490a3;
+  }
+  // 768px
+  @media only screen and (max-width: 48em) {
+    font-size: 2.3rem;
+    padding-bottom: 8rem;
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

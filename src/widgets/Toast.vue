@@ -33,7 +33,7 @@ export default {
   transform: translateX(-50%);
   transition: opacity 0.3s, transform 0.4s, top 0.4s;
   overflow: hidden;
-  background-color: #333;
+  background-color: #324462;
   color: #fff;
   border-radius: 5px;
   padding: 16px;
