@@ -80,8 +80,9 @@ export default {
             this.$store.dispatch("setSearchedPhotos", photos);
           } else if (responseStatus === 200 && photos.length === 0) {
             this.$refs.toast.toggleToast(
-              "No photos found for the searched term"
+              `No photos found for the searched term - ${this.searchQuery}`
             );
+            this.$store.commit("clearData");
           } else {
             this.$refs.toast.toggleToast(responseMessage);
           }
@@ -148,9 +149,10 @@ export default {
     border: none;
     background: none;
     outline: none;
+    padding: 1.2rem 0;
+    font-size: 1.8rem;
     &::placeholder {
       color: #283b5b;
-      // color: #909aaa;
       font-size: 1.6rem;
       letter-spacing: 0.5px;
     }
