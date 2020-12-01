@@ -76,6 +76,10 @@ export default {
   height: 100%;
   border-radius: 1rem;
   overflow: hidden;
+  // 768px
+  @media only screen and (max-width: 48em) {
+    height: 70%;
+  }
 }
 
 .modal-enter {
