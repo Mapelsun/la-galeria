@@ -14,7 +14,11 @@
       @click="magnifyImage(photo)"
     >
       <img
-        :src="photo.urls.regular"
+        :srcset="
+          `${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=478&amp;q=60 478w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=768&amp;q=80 768w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1024&amp;q=80 1024w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80 1200w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1440&amp;q=80 1440w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1800&amp;q=80 1800w, ${photo.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=2550&amp;q=80 2550w`
+        "
+        sizes="(min-width: 1335px) 416px, (min-width: 992px) calc(calc(100vw - 72px) / 3), (min-width: 768px) calc(calc(100vw - 48px) / 2), 100vw"
+        :src="`${photo.urls.thumb}`"
         :alt="photo.alt_description"
         class="gallery__img"
       />
@@ -32,7 +36,11 @@
       <div v-if="singlePhoto" class="modal-in__wrapper">
         <div class="modal-in__image-box">
           <img
-            :src="singlePhoto.urls.regular"
+            :srcset="
+              `${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=478&amp;q=60 478w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=768&amp;q=80 768w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1024&amp;q=80 1024w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80 1200w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1440&amp;q=80 1440w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1800&amp;q=80 1800w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=2550&amp;q=80 2550w`
+            "
+            sizes="(min-width: 1335px) 416px, (min-width: 992px) calc(calc(100vw - 72px) / 3), (min-width: 768px) calc(calc(100vw - 48px) / 2), 100vw"
+            :src="`${singlePhoto.urls.thumb}`"
             :alt="singlePhoto.alt_description"
             class="modal-in__img"
           />
