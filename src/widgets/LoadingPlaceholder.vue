@@ -27,7 +27,7 @@ export default {};
     margin-bottom: 4rem;
     &--img {
       width: 100%;
-      height: 20rem;
+      height: 30rem;
       display: block;
       object-fit: cover;
       margin-bottom: 4rem;
