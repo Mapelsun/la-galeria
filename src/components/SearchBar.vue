@@ -28,7 +28,7 @@
     </form>
 
     <div v-if="searchQuery !== 'African'">
-      <h2 class="searching" v-if="loading && searchQuery !== ''">
+      <h2 class="searching searching--one" v-if="loading && searchQuery !== ''">
         Searching for <span>{{ searchQuery }}</span>
       </h2>
       <h2 class="searching" v-if="!loading && searchedPhotos.length !== 0">
@@ -87,6 +87,7 @@ export default {
           }
         })
         .catch(error => {
+          this.$store.commit("toggleLoading", false);
           this.$refs.toast.toggleToast(error);
         });
       this.form.searchTerm = "";
@@ -162,10 +163,12 @@ export default {
   color: #324462;
   font-size: 3rem;
   font-weight: 600;
-  // animation: pulse 1s ease-in-out;
   animation: pulse 0.5s ease-in;
   span {
     color: #8490a3;
+  }
+  &--one {
+    animation: pulse 1s infinite ease-in-out;
   }
   // 768px
   @media only screen and (max-width: 48em) {

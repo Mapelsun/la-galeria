@@ -1,6 +1,6 @@
 <template>
   <section class="gallery row">
-    <div v-if="searchedPhotos.length === 0">
+    <div v-if="loading">
       <app-content-loading
         v-for="(item, index) in items"
         :key="index"
@@ -51,7 +51,7 @@ import { mapState } from "vuex";
 import Modal from "@/widgets/Modal";
 import LoadingPlaceholder from "@/widgets/LoadingPlaceholder";
 export default {
-  computed: mapState(["searchedPhotos"]),
+  computed: mapState(["searchedPhotos", "loading"]),
   components: {
     "app-modal": Modal,
     "app-content-loading": LoadingPlaceholder

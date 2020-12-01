@@ -18,7 +18,7 @@ export default {
   components: {
     "app-search-bar": SearchBar,
     "app-gallery-grid": GalleryGrid,
-    "app-toast": Toast
+    "app-toast": Toast,
   },
   mounted() {
     let payload = "African";
@@ -27,7 +27,7 @@ export default {
 
     api
       .handleSearchPhotos(this.searchQuery)
-      .then(response => {
+      .then((response) => {
         this.$store.commit("toggleLoading", false);
 
         let responseStatus = response.status;
@@ -40,10 +40,11 @@ export default {
           this.$refs.toast.toggleToast(responseMessage);
         }
       })
-      .catch(error => {
+      .catch((error) => {
+        this.$store.commit("toggleLoading", false);
         this.$refs.toast.toggleToast(error);
       });
-  }
+  },
 };
 </script>
 
@@ -51,7 +52,7 @@ export default {
 .main {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 20vh min-content;
+  grid-template-rows: min-content 15rem min-content;
   &__search {
     grid-row: 1 / 3;
     grid-column: 1 / -1;
