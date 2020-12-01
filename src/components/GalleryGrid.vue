@@ -31,21 +31,17 @@
     <app-modal
       v-if="photoModalVisible"
       @close="photoModalVisible = false"
-      class="modal-in"
+      class="modal"
     >
-      <div v-if="singlePhoto" class="modal-in__wrapper">
-        <div class="modal-in__image-box">
+      <div v-if="singlePhoto" class="modal__container">
+        <div class="modal__image-box">
           <img
-            :srcset="
-              `${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=478&amp;q=60 478w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=768&amp;q=80 768w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1024&amp;q=80 1024w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80 1200w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1440&amp;q=80 1440w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=1800&amp;q=80 1800w, ${singlePhoto.urls.raw}&amp;auto=format&amp;fit=crop&amp;w=2550&amp;q=80 2550w`
-            "
-            sizes="(min-width: 1335px) 416px, (min-width: 992px) calc(calc(100vw - 72px) / 3), (min-width: 768px) calc(calc(100vw - 48px) / 2), 100vw"
-            :src="`${singlePhoto.urls.thumb}`"
+            :src="`${singlePhoto.urls.regular}`"
             :alt="singlePhoto.alt_description"
-            class="modal-in__img"
+            class="modal__img"
           />
         </div>
-        <div class="modal-in__texts">
+        <div class="modal__texts">
           <h3>{{ singlePhoto.user.name }}</h3>
           <p>{{ singlePhoto.user.location }}</p>
         </div>
@@ -136,21 +132,31 @@ export default {
     font-weight: 300;
   }
 }
-.modal-in {
-  &__wrapper {
-    height: -webkit-fill-available;
+.modal {
+  &__container {
+    height: 100%;
+    position: relative;
+    display: grid;
+    grid-template-rows: 85% 15%;
+    grid-template-columns: 1fr;
   }
   &__image-box {
-    height: 100%;
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
   }
   &__img {
     width: 100%;
-    height: 77vh;
+    height: 100%;
     display: inline-block;
     object-fit: cover;
   }
   &__texts {
-    padding: 2rem;
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     h3 {
       color: #384966;
     }
